@@ -54,7 +54,7 @@ public class DjFormTest {
     public final class ExampleForm extends DJForm {
         public EditTextField name = new EditTextField();
         public DateDialogField date = new DateDialogField();
-        public EditTextField aThirdField = new EditTextField();
+        public EditTextField thirdField = new EditTextField("aThirdField");
 
         public ExampleForm(Context context) {
             super(context);
@@ -82,7 +82,7 @@ public class DjFormTest {
         // Assert Order preserved
         assertEquals(form.name.getFieldView(Robolectric.application), viewGroup.getChildAt(0));
         assertEquals(form.date.getFieldView(Robolectric.application), viewGroup.getChildAt(1));
-        assertEquals(form.aThirdField.getFieldView(Robolectric.application), viewGroup.getChildAt(2));
+        assertEquals(form.thirdField.getFieldView(Robolectric.application), viewGroup.getChildAt(2));
 
         // Assert multiple calls to getFormViewGroup returns the same object
         assertEquals(viewGroup, form.getFormViewGroup());
@@ -104,7 +104,7 @@ public class DjFormTest {
         // Let's add some valid data.
         form.name.getFieldView(Robolectric.application).setText("Hello");
         form.date.getFieldView(Robolectric.application).setText("May 25, 2015");
-        form.aThirdField.getFieldView(Robolectric.application).setText("olleH");
+        form.thirdField.getFieldView(Robolectric.application).setText("olleH");
 
         assertTrue(form.isFormValid());
 
