@@ -19,6 +19,11 @@ dependencies {
 ## Basic Usage
 
 ```java
+
+/**
+ * This can be a POJO, SugarRecord, whatever.  Also, DJForms is smart enough
+ * to look for get / set methods, so you can write this part in Kotlin as well.
+ */
 class Contact {
     public String emailAddress;
     public String name;
@@ -61,10 +66,11 @@ class MyActivity extends Acticity {
 
 ## Adding Hint text, etc.
 
-styles.xml
+forms.xml
 
 ```xml
 <resources>
+    <!-- There are some parent styles available in DJForm's forms.xml -->
     <style name="EmailField" parent="Form">
         <item name="android:hint">@string/email_hint</item>
     </style>
