@@ -1,5 +1,21 @@
 # DJForms - Clean Forms for Android!
 
+## Get it from Gradle
+
+```groovy
+
+repositories {
+    maven {
+        url  "http://dl.bintray.com/exallium/maven"
+    }
+}
+
+dependencies {
+    compile 'com.exallium.DJForms:lib:0.1'
+}
+
+```
+
 ## Basic Usage
 
 ```java
