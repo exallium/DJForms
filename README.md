@@ -32,6 +32,9 @@ class Contact {
 /**
  * Currently required to be implemented in Java due to how the Fields are
  * collected by DJForm
+ * Note here that since name is a field in Contact, we don't need to specify it
+ * in the constructor.  Also note that we could specify null, and it'll still
+ * use the field name instead of trying to use the constructor parameter.
  */
 class ContactForm extends DJForm {
     public EditTextField name = new EditTextField();
