@@ -209,7 +209,8 @@ public abstract class DJForm {
             if (DJField.class.isAssignableFrom(field.getType())) {
                 try {
                     DJField djField = (DJField) field.get(this);
-                    djField.setFieldName(field.getName());
+                    if (djField.getName() == null)
+                        djField.setFieldName(field.getName());
                     fieldCache.add(djField);
                 } catch (IllegalAccessException e) {
                     Log.w(TAG, "Could not retrieve field");
