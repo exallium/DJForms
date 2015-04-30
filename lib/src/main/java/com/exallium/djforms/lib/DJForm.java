@@ -138,11 +138,12 @@ public abstract class DJForm {
                 if (value == null)
                     continue;
                 try {
-                    Log.d(TAG, "FIND METHOD FOR VALUE " + value);
-                    Method m = model.getClass().getMethod(getFieldSetter(name), value.getClass());
-                    m.invoke(model, value);
-                } catch (NoSuchMethodException e1) {
-                } catch (InvocationTargetException e1) {
+                    Method m = resolveMethod(getFieldSetter(name), model, value);
+
+                    if (m != null)
+                        m.invoke(model, value);
+
+                }  catch (InvocationTargetException e1) {
                     Log.e(TAG, "Bad Invocation", e);
                 } catch (IllegalAccessException e1) {
                     Log.e(TAG, "Something Bad Happened", e);
@@ -151,7 +152,15 @@ public abstract class DJForm {
                 Log.e(TAG, "Something Bad Happened", e);
             }
         }
+
+        postSave(model);
     }
+
+    /**
+     * Hook to perform after save is complete.
+     * @param model The model to act on.
+     */
+    protected void postSave(Object model) {}
 
     private String getFieldSetter(String name) {
         return String.format("set%s", capitalize(name));
@@ -184,5 +193,41 @@ public abstract class DJForm {
             }
         }
         return fieldCache;
+    }
+
+    /**
+     * Stupid frigging java type system makes no sense sometimes.
+     * @param methodName Method we're looking for
+     * @param subject    Where we're looking
+     * @param value      What we're looking to put there
+     * @return The method if found, else null
+     */
+    private Method resolveMethod(String methodName, Object subject, Object value) {
+        try {
+            return subject.getClass().getMethod(methodName, value.getClass());
+        } catch (NoSuchMethodException e) {
+            Class<?> clazz = null;
+            if (value instanceof Long) {
+                clazz = Long.TYPE;
+            } else if (value instanceof Integer) {
+                clazz = Integer.TYPE;
+            } else if (value instanceof Byte) {
+                clazz = Byte.TYPE;
+            } else if (value instanceof Character) {
+                clazz = Character.TYPE;
+            } else if (value instanceof Short) {
+                clazz = Short.TYPE;
+            } else if (value instanceof Double) {
+                clazz = Double.TYPE;
+            } else if (value instanceof Float) {
+                clazz = Float.TYPE;
+            }
+
+            try {
+                return subject.getClass().getMethod(methodName, clazz);
+            } catch (NoSuchMethodException e1) {
+                return null;
+            }
+        }
     }
 }

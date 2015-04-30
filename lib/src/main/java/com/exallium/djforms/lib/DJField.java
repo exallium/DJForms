@@ -158,7 +158,8 @@ public abstract class DJField<V extends View> {
      * @param obj The field value
      */
     void setFieldValue(Object obj) {
-        setValue(cachedView, obj);
+        if (obj != null)
+            setValue(cachedView, obj);
     }
 
     /**

@@ -36,6 +36,7 @@ public class DateDialogField extends EditTextField {
     @Override
     protected void onViewCreated(EditText view) {
         super.onViewCreated(view);
+        view.setFocusable(false);
         view.setOnClickListener(onClickListener);
     }
 
