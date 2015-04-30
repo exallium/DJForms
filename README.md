@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.exallium.DJForms:lib:0.1'
+    compile 'com.exallium.DJForms:lib:0.1.1'
 }
 
 ```
