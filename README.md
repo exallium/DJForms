@@ -2,7 +2,7 @@
 
 ## Basic Usage
 
-```::java
+```java
 class Contact {
     public String emailAddress;
     public String name;
@@ -47,7 +47,7 @@ class MyActivity extends Acticity {
 
 styles.xml
 
-```::xml
+```xml
 <resources>
     <style name="EmailField" parent="Form">
         <item name="android:hint">@string/email_hint</item>
