@@ -19,7 +19,7 @@ import java.util.Locale;
  */
 public class DateDialogField extends EditTextField {
 
-    private static DateFormat dateFormat = new SimpleDateFormat("MMMMM dd, yyyy", Locale.CANADA);
+    private static DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
 
     public DateDialogField() {
         this(null);
@@ -84,7 +84,7 @@ public class DateDialogField extends EditTextField {
         try {
             return getDateFormat().parse((String) super.getValue(view));
         } catch (ParseException e) {
-            return null;
+            return new Date();
         }
     }
 

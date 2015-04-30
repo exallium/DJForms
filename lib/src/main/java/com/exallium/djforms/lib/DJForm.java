@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -99,7 +101,15 @@ public abstract class DJForm {
                 Field f = model.getClass().getField(name);
                 field.setFieldValue(f.get(model));
             } catch (NoSuchFieldException e) {
-                // Nothing to init, so we ignore it
+                try {
+                    Method m = model.getClass().getMethod(getFieldGetter(name));
+                    field.setFieldValue(m.invoke(model));
+                } catch (NoSuchMethodException e1) {
+                } catch (InvocationTargetException e1) {
+                    Log.e(TAG, "Bad Invocation", e);
+                } catch (IllegalAccessException e1) {
+                    Log.e(TAG, "Something Bad Happened", e);
+                }
             } catch (IllegalAccessException e) {
                 Log.d(TAG, "Field" + field + " can't be accessed");
             }
@@ -119,16 +129,40 @@ public abstract class DJForm {
         // or from their DJField name
         for (DJField field : fieldCache) {
             final String name = field.getName();
+            final Object value = field.getFieldValue();
             try {
-                // Get corresponding model field
                 Field f = model.getClass().getField(name);
-                f.set(model, field.getFieldValue());
+                f.set(model, value);
             } catch (NoSuchFieldException e) {
-                Log.d(TAG, "Field " + field + " doesn't exist on passed model");
+                // Lookup method is impossible here...
+                if (value == null)
+                    continue;
+                try {
+                    Log.d(TAG, "FIND METHOD FOR VALUE " + value);
+                    Method m = model.getClass().getMethod(getFieldSetter(name), value.getClass());
+                    m.invoke(model, value);
+                } catch (NoSuchMethodException e1) {
+                } catch (InvocationTargetException e1) {
+                    Log.e(TAG, "Bad Invocation", e);
+                } catch (IllegalAccessException e1) {
+                    Log.e(TAG, "Something Bad Happened", e);
+                }
             } catch (IllegalAccessException e) {
                 Log.e(TAG, "Something Bad Happened", e);
             }
         }
+    }
+
+    private String getFieldSetter(String name) {
+        return String.format("set%s", capitalize(name));
+    }
+
+    private String getFieldGetter(String name) {
+        return String.format("get%s", capitalize(name));
+    }
+
+    private String capitalize(String name) {
+        return name.substring(0,1).toUpperCase() + name.substring(1);
     }
 
     private List<DJField> getFormFields(boolean clearCache) {
