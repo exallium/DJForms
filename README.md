@@ -82,7 +82,7 @@ forms.xml
 
 ## Adding a custom Form Field
 
-```
+```java
 public class EmailField extends EditTextField {
 
     /**
