@@ -22,4 +22,15 @@
  * THE SOFTWARE.
  */
 
-include ':lib', ':compiler'
+package com.exallium.djforms.lib.annotations;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.CLASS)
+@Target(ElementType.TYPE)
+public @interface Form {
+    int value();
+}

@@ -22,4 +22,19 @@
  * THE SOFTWARE.
  */
 
-include ':lib', ':compiler'
+package com.exallium.djforms.compiler;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+@RunWith(JUnit4.class)
+public class FormProcessorTest {
+
+    @com.exallium.djforms.lib.annotations.Form(0)
+    public class Form {}
+
+    @Test
+    public void annotationTest() {}
+
+}

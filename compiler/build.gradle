@@ -22,4 +22,9 @@
  * THE SOFTWARE.
  */
 
-include ':lib', ':compiler'
+apply plugin: 'java'
+
+dependencies {
+    compile project(':lib')
+    testCompile 'junit:junit:4.12'
+}
