@@ -22,4 +22,8 @@
  * THE SOFTWARE.
  */
 
-include ':compiler', ':lib', ':api'
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}

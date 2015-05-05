@@ -31,10 +31,12 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class FormProcessorTest {
 
-    @com.exallium.djforms.lib.annotations.Form(0)
+    @com.exallium.djforms.api.Form(0)
     public class Form {}
 
     @Test
-    public void annotationTest() {}
+    public void annotationTest() {
+
+    }
 
 }

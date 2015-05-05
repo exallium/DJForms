@@ -26,6 +26,7 @@ package com.exallium.djforms.lib;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import com.exallium.djforms.api.Form;
 import com.exallium.djforms.lib.fields.DateDialogField;
 import com.exallium.djforms.lib.fields.EditTextField;
 import org.junit.AfterClass;
@@ -51,6 +52,7 @@ public class DjFormTest {
         public String aThirdField;
     }
 
+    @Form(0)
     public final class ExampleForm extends DJForm {
         public EditTextField name = new EditTextField();
         public DateDialogField date = new DateDialogField();

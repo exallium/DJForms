@@ -24,20 +24,24 @@
 
 package com.exallium.djforms.compiler;
 
-import com.exallium.djforms.lib.annotations.Form;
+import com.exallium.djforms.api.Form;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import java.util.Set;
 
 @SupportedAnnotationTypes("com.exallium.djforms.lib.annotations.Form")
+@SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class FormProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Hello, world");
         for (Element element : roundEnv.getElementsAnnotatedWith(Form.class)) {
             String message = "Found element " + element.getSimpleName();
             processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, message);

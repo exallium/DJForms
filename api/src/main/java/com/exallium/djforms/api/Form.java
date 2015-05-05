@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.exallium.djforms.lib.annotations;
+package com.exallium.djforms.api;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
