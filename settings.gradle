@@ -22,4 +22,4 @@
  * THE SOFTWARE.
  */
 
-include ':lib', ':compiler'
+include ':compiler', ':lib'
